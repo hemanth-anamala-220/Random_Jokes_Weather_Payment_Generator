@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Generator</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <div class="nav">
+    <h2 text-color="None
+"><a href="./index.html">Weather Generator</a></h2>
+  </div>
+  
+  <div class="section">
+    <h2>Check the Weather</h2> 
+    <div class="input-container">
+      <input id="input" type="text" placeholder="Enter city name">  
+      <button id="generate-btn">Generate</button>  
+    </div>
+    <div id="weather-result"></div>
+    <div><a href="./index.html" style="background-color: rgb(87, 87, 234); color: black; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Home</a></div>
+  </div>
+
+
+  <script>
+    document.getElementById("generate-btn").addEventListener("click", getWeather);
+
+    async function getWeather() {
+      const userInput = document.querySelector('#input').value.trim();
+
+      if (!userInput) {
+        alert("⚠️ Please provide a valid city name");
+        return;
+      }
+
+      const apiKey = '8dc68499cc23dc253c916fb0f9d4c07c';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(userInput)}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+
+        if (data.cod !== 200) {
+          alert("❌ Location not found. Please enter a valid city name.");
+          return;
+        }
+
+        const iconCode = data.weather[0].icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+        document.querySelector('#weather-result').innerHTML = `
+          <div class="weather-card">
+            <img src="${iconUrl}" alt="Weather Icon" class="weather-icon">
+            <h3>${data.name}, ${data.sys.country}</h3>
+            <p><strong>Condition:</strong> ${data.weather[0].description}</p>
+            <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
+            <p><strong>Feels Like:</strong> ${data.main.feels_like}°C</p>
+            <p><strong>Min:</strong> ${data.main.temp_min}°C | <strong>Max:</strong> ${data.main.temp_max}°C</p>
+            <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+            <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+          </div>
+        `;
+      } catch (error) {
+        alert("⚠️ An error occurred while fetching the weather data.");
+        console.error("Fetch error:", error);
+      }
+    }
+  </script>  
+</body>
+</html>
+

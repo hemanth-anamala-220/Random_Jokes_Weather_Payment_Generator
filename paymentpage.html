@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR CODE Payment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar */
+.nav {
+  background-color: #0d47a1;
+  padding: 1rem;
+  color: white;
+}
+
+.nav h2 {
+  margin: 0;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-menu li {
+  list-style: none;
+}
+
+@media (max-width: 600px) {
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.payment-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 30px;
+  max-width: 450px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.payment-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.method {
+  background: #f1f1f1;
+  border-radius: 15px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.method:hover {
+  background: #d8eafd;
+}
+
+.method img {
+  width: 30px;
+  height: 30px;
+}
+
+.qr-section {
+  margin-top: 25px;
+  padding: 15px;
+  background: #eef7ff;
+  border-radius: 10px;
+}
+
+.qr-section img {
+  width: 120px;
+  margin-top: 10px;
+}
+
+.confirm-msg {
+  display: none;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.pay-button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pay-button:hover {
+  background: #45a049;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+  width: 80%;
+  border: 1px solid #ccc;
+}
+
+</style>
+<body>
+
+  <div class="nav">
+    <h2>QR Code</h2>
+    <ul class="nav-menu">
+      <li><a href="./Randomjokes.html">Random Jokes</a></li>
+      <li><a href="#">Payment QR Code</a></li>
+      <li><a href="./weather.html">Weather Generator</a></li>
+    </ul>
+  </div>
+
+  <div class="payment-container">
+    <h2>Select Payment Method</h2>
+
+    <div class="methods">
+      <div class="method" data-method="gpay">
+        <img src="https://img.icons8.com/color/48/000000/google-pay-india.png" alt="Google Pay">
+        <span>Google Pay</span>
+      </div>
+      <div class="method" data-method="phonepe">
+        <img src="https://cdn.siasat.com/wp-content/uploads/2021/03/PhonePe.jpg" alt="PhonePe">
+        <span>PhonePe</span>
+      </div>
+      <div class="method" data-method="card">
+        <img src="https://png.pngtree.com/png-vector/20200222/ourmid/pngtree-credit-card-isolated-on-white-background-png-image_2151943.jpg" alt="Card">
+        <span>Credit/Debit Card</span>
+      </div>
+      <div class="method" data-method="qr">
+        <img src="https://img.icons8.com/ios-filled/50/000000/qr-code.png" alt="QR">
+        <span>QR Code</span>
+      </div>
+    </div>
+
+    <div class="qr-section" id="dynamic-section">
+      <p>Select a payment method to proceed</p>
+    </div>
+
+    <button class="pay-button" onclick="showConfirmation()">Complete Payment</button>
+
+    <div class="confirm-msg" id="confirmation">
+      ✅ Payment Successful! Thank you.
+    </div>
+  </div>
+
+  <script src="./Script.js"></script>
+</body>
+</html>
